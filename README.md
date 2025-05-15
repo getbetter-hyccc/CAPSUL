@@ -1,4 +1,4 @@
-# CHUPSUL: A Comprehensive Human Protein Benchmark for Subcellular Localization
+# CAPSUL: A Comprehensive Human Protein Benchmark for Subcellular Localization
 
 Here we introduce the benchmark evaluation code, including baseline models ESM-2, ESM-C, CDConv, and GearNet-Edge.
 
