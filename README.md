@@ -6,7 +6,7 @@
 
 This repository contains the official implementation of the paper:   **"CAPSUL: A Comprehensive Human Protein Benchmark for Subcellular Localization"** *Accepted by **ICLR 2026***.
 
-
+![img](file:///D:/1-Subcellular%20Localization%20of%20Proteins/ICLR/pipeline_iclr_final.jpg)
 
 Subcellular localization is a crucial biological task for drug target identification and function annotation. Although it has been biologically realized that subcellular localization is closely associated with protein structure, no existing dataset offers comprehensive 3D structural information with detailed subcellular localization annotations, thus severely hindering the application of promising structure-based models on this task. To address this gap, we introduce a new benchmark called **CAPSUL**, a **C**omprehensive hum**A**n **P**rotein benchmark for **SU**bcellular **L**ocalization. It features a dataset that integrates diverse 3D structural representations with fine-grained subcellular localization annotations carefully curated by domain experts. We evaluate this benchmark using a variety of state-of-the-art sequence-based and structure-based models, showcasing the importance of involving structural features in this task. Furthermore, we explore reweighting and single-label classification strategies to facilitate future investigation on structure-based methods for this task. Lastly, we showcase the powerful interpretability of structure-based methods through a case study on the Golgi apparatus, where we discover a decisive localization pattern $\alpha$-helix from attention mechanisms, demonstrating the potential for bridging the gap with intuitive biological interpretability and paving the way for data-driven discoveries in cell biology.
 
@@ -34,7 +34,7 @@ CAPSUL/
 │   ├── ESM             # ESM-2 and ESM-C implementation
 │   ├── CDConv/         # CDConv implementation (Transformer added in accordance with the paper)
 │   └── GearNet-Edge/   # GearNet-Edge implementation (Transformer added in accordance with the paper)
-├── LISCENSE
+├── LICENSE
 └── requirements.txt    # Environment dependencies
 ```
 
@@ -73,5 +73,5 @@ Coming Soon...
 
 This project is licensed under the MIT License. This is a permissive license that allows for reuse, modification, and distribution for both academic and commercial purposes, provided that the original copyright and license notice are included.
 
-See the [LICENSE]([getbetter-hyccc/CAPSUL](https://github.com/getbetter-hyccc/CAPSUL/blob/main/LICENSE)) file for the full text.
+See the [LICENSE](https://github.com/getbetter-hyccc/CAPSUL/blob/main/LICENSE) file for the full text.
 
