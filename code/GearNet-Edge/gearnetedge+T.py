@@ -26,13 +26,13 @@ from torch_scatter import scatter_add
 from torchdrug.layers.readout import Readout
 
 # To run this program, there should be a folder named "dataset" in the current directory, which contains:
-# - pdb/AlphaFold_pdb.tar: the selected .pdb original file.
+# - pdb/AlphaFold_pdb.tar: .tar archive containing all original protein .pdb files
 # - union.csv: a CSV file containing localization annotations.
 
 def parse_args():
     import argparse
     parser = argparse.ArgumentParser(description='GearNet-Edge+Transformer')
-    parser.add_argument('--version', default=None, type=str)
+    parser.add_argument('--version', default='test', type=str)
     parser.add_argument('--gpu', default=0, type=int)
     parser.add_argument('--gpus', default=[0], type=list)
     parser.add_argument('--batch_size', default=16, type=int)
@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument('--transformer_num_heads', default=2, type=int, help='Number of heads in transformer')
     parser.add_argument('--transformer_num_layers', default=2, type=int, help='Number of layers in transformer')
     parser.add_argument('--epoch', default=200, type=int)
-    parser.add_argument('--early_stopping_patience', default=8, type=int)
+    parser.add_argument('--early_stopping_patience', default=10, type=int)
 
 
     args = parser.parse_args()
@@ -191,8 +191,6 @@ class NewAlphaFold(datasets.AlphaFoldDB):
             self.sequences.append(protein.to_sequence() if protein else None)
     
 
-
-
     def get_item(self, index, split):
 
         if split not in self.data_dict:
@@ -209,7 +207,6 @@ class NewAlphaFold(datasets.AlphaFoldDB):
             with protein.residue():
                 protein.residue_feature = protein.residue_feature.to_dense()
         
-
         filename = os.path.basename(self.pdb_files_dict[split][index])
         protein_id = filename.split('-')[0]
         label = self.label_dict.get(protein_id, [0] * 20)
@@ -217,7 +214,6 @@ class NewAlphaFold(datasets.AlphaFoldDB):
         item = {"graph": protein}
         if self.transform:
             item = self.transform(item)
-        
         
         item["targets"] = torch.tensor(label, dtype=torch.float32).to(torch.device(f'cuda:{self.gpu}' if torch.cuda.is_available() else 'cpu'))
         return item
@@ -260,7 +256,6 @@ class TransformerEncoderLayerWithAttention(nn.TransformerEncoderLayer):
             attn_output, _ = self.self_attn(
                 src, src, src, key_padding_mask=src_key_padding_mask, average_attn_weights=True
             )
-          # attn_weights shape: (batch_size, seq_len, seq_len)
 
         src = src + self.dropout1(attn_output)
         src = self.norm1(src)
@@ -587,7 +582,7 @@ if __name__ == '__main__':
     valid_set = [dataset.get_item(i, "valid") for i in range(len(dataset.pdb_files_dict['valid']))]
     test_set = [dataset.get_item(i, "test") for i in range(len(dataset.pdb_files_dict['test']))]
 
-    gearnet = CustomGearNet(input_dim=21, hidden_dims=args.hidden_dims, num_relation=7, edge_input_dim=59, num_angle_bin=8, batch_norm=True, concat_hidden=args.concat_hidden, short_cut=True, readout="keep")
+    gearnet = CustomGearNet(input_dim=21, hidden_dims=args.hidden_dims, num_relation=7, edge_input_dim=59, num_angle_bin=8, batch_norm=True, concat_hidden=args.concat_hidden, short_cut=True, readout="keep") # You can change "readout" to "sum" or "mean" if you do not use the transformer architecture, which is the original setting.
     graph_construction_model = layers.GraphConstruction(node_layers=[geometry.AlphaCarbonNode()], 
                                                         edge_layers=[geometry.SpatialEdge(radius=10.0, min_distance=5),
                                                                     geometry.KNNEdge(k=10, min_distance=5),

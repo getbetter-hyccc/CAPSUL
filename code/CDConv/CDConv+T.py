@@ -11,9 +11,7 @@ from sklearn.metrics import classification_report
 import random
 import time
 
-# To run this program, there should be a folder named "dataset" in the current directory, which contains:
-# - coordinate: a folder containing .npy files with protein coordinates.
-# - union.csv: a CSV file containing localization annotations.
+
 
 def parse_args():
     import argparse
@@ -342,17 +340,13 @@ if __name__ == '__main__':
             y_true.extend(data.y.cpu().numpy())
             y_pred.extend(preds.cpu().numpy())
     
-    # 计算平均损失
     test_avg_loss = total_loss / total_samples if total_samples > 0 else 0
 
-    # 保存预测结果和实际结果
     results = {"y_true": y_true, "y_pred": y_pred}
     results_path = f"CDConv+T/best_model/CDConv+T_{args.version}_results.pt"
     torch.save(results, results_path)
     print(f"Test Average Loss: {test_avg_loss:.4f}")
     print(f"Results saved to {results_path}")
     
-    
-    # 输出分类报告
     report = classification_report(y_true, y_pred, target_names=['Nucleus', 'Nuclear Membrane', 'Nucleoli', 'Nucleoplasm', 'Cytoplasm', 'Cytosol', 'Cytoskeleton', 'Centrosome', 'Mitochondria', 'Endoplasmic Reticulum', 'Golgi Apparatus', 'Plasma Membrane/Cell Membrane', 'Endosome', 'Lipid droplet', 'Lysosome/Vacuole', 'Peroxisome', 'Vesicle', 'Primary Cilium', 'Secreted Proteins', 'Sperm'], digits=3)
     print(report)

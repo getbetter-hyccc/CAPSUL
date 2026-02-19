@@ -18,17 +18,17 @@ import os
 # To run this program, there should be a folder named "dataset" in the current directory, which contains:
 # - union.csv: a CSV file containing localization annotations.
 
-# - The model path should be the one you downloaded from the ESM-C website. The model we use is ESM-C 600M.
+# The model path should be the one you downloaded from the ESM-C website. The model we use is ESM-C 600M.
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train ESMC + MLP for binary classification")
     parser.add_argument('--bs', type=int, default=32, help="Batch size for training")
-    parser.add_argument('--lr', type=float, default=5e-5, help="Learning rate")
+    parser.add_argument('--lr', type=float, default=5e-4, help="Learning rate")
     parser.add_argument('--epochs', type=int, default=400, help="Number of training epochs")
     parser.add_argument('--patience', type=int, default=10, help="Patience for early stopping")
-    parser.add_argument('--version', type=str, default="1", help="Model version for saving")
-    parser.add_argument('--mlp_hidden_dims', type=int, nargs='+', default=[512,256,128], help="List of hidden layer sizes for MLP, e.g. --mlp_hidden_dims 512 256")
+    parser.add_argument('--version', type=str, default="test", help="Model version for saving")
+    parser.add_argument('--mlp_hidden_dims', type=int, nargs='+', default=[512,256], help="List of hidden layer sizes for MLP, e.g. --mlp_hidden_dims 512 256")
     parser.add_argument('--seed', type=int, default=42, help="Set random seed to initialize")
     parser.add_argument('--gpu', type=int, default=0, help="GPU id to use (e.g., 0, 1, 2, ...)")
 

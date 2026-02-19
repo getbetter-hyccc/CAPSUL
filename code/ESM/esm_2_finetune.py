@@ -103,13 +103,14 @@ def set_seed(seed=42):
 
 if __name__ == "__main__":
 
-    version = '4'
-    gpu = 5
+    # hyperparameters to be set
+    version = 'test'
+    gpu = 0
     EPOCHS = 200
     lr = 1e-4
     hidden_dims = [512, 256]
     patience = 5
-    batch_size = 1
+    batch_size = 4
 
     set_seed(42)
 
