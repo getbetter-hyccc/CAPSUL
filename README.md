@@ -62,10 +62,11 @@ Please note the following regarding other baseline models mentioned in our paper
 If you use this dataset and benchmark **CAPSUL** in your research, please cite:
 
 ```
-@inproceedings{hucapsul,
+@article{hu2026capsul,
   title={CAPSUL: A Comprehensive Human Protein Benchmark for Subcellular Localization},
-  author={Hu, Yicheng and Lin, Xinyu and Li, Shulin and Wang, Wenjie and ZHU, Fengbin and Feng, Fuli},
-  booktitle={The Fourteenth International Conference on Learning Representations}
+  author={Hu, Yicheng and Lin, Xinyu and Li, Shulin and Wang, Wenjie and Zhu, Fengbin and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.18571},
+  year={2026}
 }
 ```
 
